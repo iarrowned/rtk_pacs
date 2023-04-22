@@ -1,0 +1,21 @@
+{
+    "name": "kirill/timwork.ru",
+    "autoload": {
+        "psr-4": {
+            "Model\\": "src/Models/",
+            "Helper\\": "main/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Кирилл",
+            "email": "14krabik14@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "symfony/var-dumper": "^6.2"
+    },
+    "require": {
+        "ext-pdo": "*"
+    }
+}

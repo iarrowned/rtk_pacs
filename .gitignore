@@ -1,0 +1,4 @@
+/vendor
+*.conf
+vendor/*
+.idea/*
