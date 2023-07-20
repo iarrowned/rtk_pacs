@@ -23,4 +23,13 @@ class Zone
 
         return $res->fetch(PDO::FETCH_ASSOC) ?: [];
     }
+
+    public static function getAllZones(): array
+    {
+        $query = "SELECT * FROM zone";
+        $res = DB::getInstance()->connection->prepare($query);
+        $res->execute();
+
+        return $res->fetchAll(PDO::FETCH_ASSOC) ?: [];
+    }
 }

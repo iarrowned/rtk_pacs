@@ -15,4 +15,9 @@ class Action
 
         return $res->fetch(PDO::FETCH_ASSOC) ?: [];
     }
+
+    public static function makeAction(int $userId, int $zoneId)
+    {
+        $query = "INSERT INTO action (user_id, zone_id) VALUES (:user_id, :zone_id)";
+    }
 }

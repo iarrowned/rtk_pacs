@@ -3,7 +3,8 @@
     "autoload": {
         "psr-4": {
             "Model\\": "src/Models/",
-            "Helper\\": "main/"
+            "Helper\\": "main/",
+            "Framework\\": "src/Framework"
         }
     },
     "authors": [

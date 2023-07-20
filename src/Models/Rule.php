@@ -15,4 +15,12 @@ class Rule
 
         return $res->fetch(PDO::FETCH_ASSOC) ?: [];
     }
+
+    public static function getAllRulse() {
+        $query = "SELECT * FROM reglament";
+        $res = DB::getInstance()->connection->prepare($query);
+        $res->execute();
+
+        return $res->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
