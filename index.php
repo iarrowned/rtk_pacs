@@ -3,8 +3,15 @@
 require_once('config/cli-config.php');
 global $entityManager;
 
-use Main\Rule;
-use Main\User;
+use ActionManager\ActionManager;
+use Entity\Rule,
+    Entity\User,
+    Entity\Action,
+    Entity\Zone;
+
+use Tools\Validator;
+
+
 
 
 /* Создать экшен
@@ -32,42 +39,45 @@ foreach ($userActions as $action) {
 }
 */
 
+/* TODO: root
 
 $user = $entityManager->getRepository(User::class)->find(1);
 
 // Все про зону (зона и правила, которые на входе в нее должны быть проверены).
-$zone = $entityManager->getRepository(\Main\Zone::class)->find(4);
+$zone = $entityManager->getRepository(\Entity\Zone::class)->find(4);
 $rules = $zone->getRules();
-dump($zone);
+//dump($zone);
 
 $userActions = $user->getActions();
-/**
- * @var Rule[] $rules
- */
+
 foreach ($rules as $rule) {
     dump($rule);
 
-    /**
-     * @var \Main\Action[] $userActions
-     */
+
     foreach ($userActions as $action) {
-        dump($action);
+        //dump($action);
         if($action->getZone() === $rule->getZoneA()) {
-            dump($action->getInterval() >= $rule->getHourInterval());
-            dump($action->getInterval());
+            //dump($action->getInterval() >= $rule->getHourInterval());
+            //dump($action->getInterval());
         }
     }
 }
 
 
+$user = $entityManager->getRepository(User::class)->find(1);
+$zone = $entityManager->getRepository(Zone::class)->find(2);
+if($user && $zone) {
+    ActionManager::createEntry($user, $zone);
+}*/
 
-/* создать правило
-$zoneA = $entityManager->getRepository(\Main\Zone::class)->find(1);
-$zoneB = $entityManager->getRepository(\Main\Zone::class)->find(4);
-$reglament = new \Main\Rule();
-$reglament->setZoneA($zoneA);
-$reglament->setZoneB($zoneB);
-$reglament->setHourInterval(15);
-$entityManager->persist($reglament);
-$entityManager->flush();
-*/
+$userId = $_GET['user_id'];
+$zoneId = $_GET['zone_id'];
+
+$user = $entityManager->getRepository(User::class)->find($userId);
+$zone = $entityManager->getRepository(Zone::class)->find($zoneId);
+
+dump($user);
+dump($zone);
+dump((new Validator())->validate($user, $zone));
+
+
