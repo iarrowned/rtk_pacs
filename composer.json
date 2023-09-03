@@ -2,9 +2,7 @@
     "name": "kirill/timwork.ru",
     "autoload": {
         "psr-4": {
-            "Model\\": "src/Models/",
-            "Helper\\": "main/",
-            "Framework\\": "src/Framework"
+            "Main\\": "src/Main"
         }
     },
     "authors": [
@@ -14,9 +12,14 @@
         }
     ],
     "require-dev": {
+        "roave/security-advisories": "dev-latest",
         "symfony/var-dumper": "^6.2"
     },
     "require": {
-        "ext-pdo": "*"
+        "ext-pdo": "*",
+        "doctrine/orm": "*",
+        "symfony/yaml": "*",
+        "symfony/cache": "*",
+        "doctrine/annotations": "*"
     }
 }
