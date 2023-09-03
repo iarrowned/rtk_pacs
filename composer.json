@@ -2,7 +2,9 @@
     "name": "kirill/timwork.ru",
     "autoload": {
         "psr-4": {
-            "Main\\": "src/Main"
+            "Entity\\": "src/Entity",
+            "Tools\\": "src/Tools",
+            "ActionManager\\": "src/ActionManager"
         }
     },
     "authors": [
@@ -20,6 +22,7 @@
         "doctrine/orm": "*",
         "symfony/yaml": "*",
         "symfony/cache": "*",
-        "doctrine/annotations": "*"
+        "doctrine/annotations": "*",
+        "symfony/dotenv": "^6.3"
     }
 }
