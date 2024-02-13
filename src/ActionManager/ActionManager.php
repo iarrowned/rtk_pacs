@@ -45,6 +45,11 @@ class ActionManager
             'zone' => $zone
         ], ['id' => 'DESC']);
 
+        if(!$action) {
+            dump('Invalid zone');
+            return false;
+        }
+
         if($action->getTimeOut()) {
             return false;
         }

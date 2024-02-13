@@ -17,7 +17,7 @@ try {
             $result['status'] = (new Validator())->validate($data['user'], $data['zone']);
             break;
         case 'out':
-            ActionManager::createExit($data['user'], $data['zone']);
+            $result['status'] = ActionManager::createExit($data['user'], $data['zone']);
             break;
     }
 } catch (Exception $e) {
