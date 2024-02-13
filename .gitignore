@@ -2,5 +2,4 @@
 *.conf
 vendor/*
 .idea/*
-*.sql
 .env
