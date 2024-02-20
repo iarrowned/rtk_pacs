@@ -4,7 +4,9 @@
         "psr-4": {
             "Entity\\": "src/Entity",
             "Tools\\": "src/Tools",
-            "ActionManager\\": "src/ActionManager"
+            "ActionManager\\": "src/ActionManager",
+            "Interface\\": "src/Interface",
+            "Response\\": "src/Response"
         }
     },
     "authors": [

@@ -6,8 +6,11 @@ use Doctrine\ORM\Exception\NotSupported;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\OptimisticLockException;
 use Entity\Action;
-use Entity\Zone,
-    Entity\User;
+use Entity\Zone;
+use Entity\User;
+use Interface\ResponseInterface;
+use Response\ErrorResponse;
+use Response\SuccessResponse;
 
 class ActionManager
 {
@@ -32,7 +35,7 @@ class ActionManager
      * @throws NotSupported
      * @throws ORMException
      */
-    public static function createExit(User $user, Zone $zone): bool
+    public static function createExit(User $user, Zone $zone): ResponseInterface
     {
         global $entityManager;
         $actionRepository = $entityManager->getRepository(Action::class);
@@ -46,17 +49,16 @@ class ActionManager
         ], ['id' => 'DESC']);
 
         if(!$action) {
-            dump('Invalid zone');
-            return false;
+            return new ErrorResponse('Invalid zone');
         }
 
         if($action->getTimeOut()) {
-            return false;
+            return new ErrorResponse("Registered last exit, but not register new entry");
         }
 
         $action->setTimeOut(new \DateTime());
         $entityManager->flush();
 
-        return true;
+        return new SuccessResponse("Exit registered");
     }
 }
