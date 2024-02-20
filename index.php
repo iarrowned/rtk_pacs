@@ -4,27 +4,27 @@ require_once('config/cli-config.php');
 global $entityManager;
 
 use ActionManager\ActionManager;
-
+use Response\ErrorResponse;
 use Tools\Processor;
 use Tools\Validator;
 
-$result = ['status' => false];
+$response = new ErrorResponse("No validated");
 
 try {
     $data = Processor::run($_GET);
     switch ($data['action']) {
         case 'in':
-            $result['status'] = (new Validator())->validate($data['user'], $data['zone']);
+            $response = (new Validator())->validate($data['user'], $data['zone']);
             break;
         case 'out':
-            $result['status'] = ActionManager::createExit($data['user'], $data['zone']);
+            $response = ActionManager::createExit($data['user'], $data['zone']);
             break;
     }
 } catch (Exception $e) {
-    dump($e->getMessage());
+    $response = new ErrorResponse("Runtime error: " . $e->getMessage());
 }
 
-echo json_encode($result);
+echo json_encode($response->toArray());
 die();
 
 ?>

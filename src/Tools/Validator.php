@@ -10,6 +10,9 @@ use Entity\Rule;
 use Entity\User;
 use Entity\Zone;
 use Exception;
+use Interface\ResponseInterface;
+use Response\ErrorResponse;
+use Response\SuccessResponse;
 
 class Validator
 {
@@ -17,12 +20,13 @@ class Validator
     /**
      * Проверяет возможность доступа пользователя в зону.
      *
-     * @param int $userId ID пользователя.
-     * @param int $zoneId ID зоны.
-     * @return bool Возвращает true, если доступ разрешен, иначе false.
+     * @param User $user
+     * @param Zone $zone
+     * @return ResponseInterface Возвращает true, если доступ разрешен, иначе false.
      * @throws NotSupported
      */
-    public function validate(User $user, Zone $zone) {
+    public function validate(User $user, Zone $zone): ResponseInterface
+    {
         global $entityManager; // Предполагаем, что $entityManager уже определен в вашем приложении
 
         // Проверка последнего действия входа пользователя в зону
@@ -33,15 +37,13 @@ class Validator
 
         if ($lastAction && !$lastAction->getTimeOut()) {
             // Пользователь все еще находится в зоне
-            dump('No last action time out');
-            return false;
+            return new ErrorResponse('No last action time out');
         }
 
         // Здесь должна быть логика проверки правил доступа на основе сущности Rule,
         // которая не описана для краткости.
         if (!$this->checkAccessRules($user, $zone, $entityManager)) {
-            dump('No check');
-            return false; // Доступ запрещен, не прошли проверку по правилам
+            return new ErrorResponse('No check'); // Доступ запрещен, не прошли проверку по правилам
         }
 
         // Предполагаем, что все проверки прошли успешно, и регистрируем вход
@@ -49,11 +51,10 @@ class Validator
             ActionManager::createEntry($user, $zone);
         } catch (Exception $e) {
             // Обработка исключений, возникших при регистрации входа
-            dump($e->getMessage());
-            return false;
+            return new ErrorResponse($e->getMessage());
         }
 
-        return true;
+        return new SuccessResponse("Success entry");
     }
 
     /**
