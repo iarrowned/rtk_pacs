@@ -4,7 +4,7 @@ require "vendor/autoload.php";
 use Doctrine\ORM\ORMSetup;
 use Doctrine\ORM\EntityManager;
 $dotenv = new \Symfony\Component\Dotenv\Dotenv();
-$dotenv->load('/var/www/rtk_pacs/.env');
+$dotenv->load('/var/www/html/.env');
 
 $isDevMode = true;
 
